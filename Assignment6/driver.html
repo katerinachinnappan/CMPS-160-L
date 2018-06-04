@@ -1,0 +1,30 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Assignment 3</title>
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix.js"></script>
+    <script src="lib/load-file.js"></script>
+    <script src="lib/proj-mtrx.js"></script>
+    <script src="lib/ioSOR.js"></script>
+    <script src="driver.js"></script>
+  </head>
+
+  <body onload="main()">
+   <canvas style = "border: 5px solid #FF0000" id="webgl" width="600" height="600">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <input type="file" id="fileinput" />
+    <button id="update_screen" type="button">Extract SOR</button>
+    <button id="save_canvas" type="button">Save</button>
+    <button id="reset_canvas" type="button">Reset Canvas</button>
+    <button type="button" id="change_light">Change Light</button>
+     <p>Show Normals</p>
+    <input type="checkbox" onclick = "check_normal(this)">
+  </body>
+  <style>
+    p.dotted {border-style: dotted;}
+  </style>
+</html>

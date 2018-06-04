@@ -5,6 +5,9 @@
 // these are passed from the main code (javascript) using 'gl.bufferData'
 attribute vec4 a_Position; // Position of vertex
 attribute float a_PointSize; // Size of points
+attribute vec4 a_Color;
+attribute vec2 a_TexCoord;
+varying vec2 v_TexCoord;
 
 // uniform variables are global porperties applied uniformly to all vertices
 // these are also passed from the main code (javascript) using 'gl.uniform[1,2,3,4][i,f]'
@@ -12,21 +15,19 @@ attribute float a_PointSize; // Size of points
 uniform int u_Invert; // Boolean to decide whether to invert colors (0 == false, else true)
 uniform int u_Flip; // Boolean to decide whether to flip vertices
 uniform vec2 u_FlipDir; // Direction in which to flip (over origin)
+uniform mat4 u_ViewMatrix;
+uniform mat4 u_ProjMatrix;
 
 // varying variables are passed from the vertex shader to the fragment shader, and are interpolated
 varying vec4 v_Color; // Color to be passed to fragment shader
 
 void main() {
-  if (u_Flip == 0) {
-    gl_Position = a_Position;
-  } else {
-    vec2 dir = reflect(normalize(a_Position.xy), normalize(u_FlipDir.yx));
-    gl_Position = vec4(dir * length(a_Position.xy), 0, 1);
-  }
-  gl_PointSize = a_PointSize;
-  if (u_Invert == 0) {
-    v_Color = vec4(1.0, 0.0, 1.0, 1.0);
-  } else {
-    v_Color = vec4(0.0, .0, 1.0, 1.0);
-  }
+  gl_Position = u_ProjMatrix * u_ViewMatrix * a_Position;
+  v_Color = a_Color;
+  v_TexCoord = a_TexCoord;
+  // if (u_Invert == 0) {
+  //   v_Color = vec4(0.0, 1.0, 0.0, 1.0);
+  // } else {
+  //   v_Color = vec4(0.0, .0, 1.0, 1.0);
+  // }
 }
